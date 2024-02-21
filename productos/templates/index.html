@@ -1,0 +1,54 @@
+
+{% extends 'base.html' %}
+
+{% block content %}
+<hi>Productos</h1>
+<!-- ahora agregaremos un formato para agregar un producto pinchando en la pag de productos -->
+<a href="{% url "productos:formulario" %}">Nuevo producto</a>
+<!-- para escribir mucho codigo html con solo unos caracteres usaremos emmt
+table.table>thead>tr>th*4
+primero indicamos que crearemos una tabla con clase table 
+despues la cabecera, table row osea una fila 
+y *4 secciones de cabeceras o columnas -->
+<table class="table">
+    <thead>
+        <tr>
+            <th>Nombre</th>
+            <th>Stock</th>
+            <th>Puntaje</th>
+            <th>Categoria</th>
+        </tr>
+    </thead>
+<!-- hicimos lo mismo de +4 con td para agregar los valores aqui -->
+<!-- y ahora vmos a importar los valores de django  -->
+<!-- el simbolo de %quiere decir que se va a colocar una instruccion -->
+<!-- ahora para insertar los valores dentro de la plantilla debemos usar el doble parentesis de corchete -->
+    <tbody>
+        {% for producto in productos %}
+        <tr>
+            <td>
+<!-- ahora agregaremos una url al texto de producto.nombre
+para lo cual debemos agregar los <a> </a> -->
+{% comment %} al hacer el formulario tuvimos que cambiar la url para seguir la convencion de app_name {% endcomment %}
+                <a href="{% url 'productos:detalle' producto.id %}">
+                    {{ producto.nombre }}
+                </a>
+            </td>
+            <td>{{ producto.stock }}</td>
+            <td>{{ producto.puntaje }}</td>
+            <td>{{ producto.categoria }} </td>
+        </tr>
+        <!-- tomar nota que los de arriba empizan en mayus por que es lo que se imprime en la tabla -->
+        <!-- pero los de aqui abajo son en minus porque son los que van a arrojar los datos correspondientes -->
+        <!-- debemos cerrar el for para que no se ejecute infinitamente  -->
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}
+
+
+
+
+
+
+

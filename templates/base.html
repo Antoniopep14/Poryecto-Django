@@ -1,0 +1,75 @@
+<!-- ahora vamos a ver ocmo agregar codigo html pero de una manera
+en la que nosotros podamos seguir agregando mas contenido a este
+escribimos ! y dejamos que el autcompletado nos de la plantilla 
+y dentro de body vamos a colocar una etiqueta de los templates
+de Django para poder colocar contenido adentro
+
+agregamos la primer etiqueta a index, necesaria para cargar los archivos abajo
+y no es necesario cerrarla como las otras
+de esta manera le indicamos que lo que escribamos abajo
+nosotros queremos que lo extienda de ese archivo
+pero antes debemos agregar las mismas etiquetas de en medio 
+al archivo de index, al principio y final despues de la
+primer etiqueta para asegurarnos que todo nuestro contenido quede dentro
+
+ahora veremos como agregar un freamework de css o javascript dentro de nuestros proyectos
+nosotros trabajaremos con bootstrap, https://getbootstrap.com/
+ahi sacaremos la linea de codigo que usaremos
+no los vamos a dercargar, sino que vamos a referencia la pagina
+donde se encuentran los elementos que necesitaremos
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+esas 2 lineas las pegamos despues de title y la segunda antes del ultimo body
+lo que hará es agregarnos un estilo por defecto y hacer mas presentable los datos de la pagina
+
+ahora veremos com compartir todas las platillas que creemos
+con todos nuestros proyectos creados con Django
+-->
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DJANGO</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+</head>
+<body>
+    {% comment %} ahora agregaremos una barra de navegacion a la app {% endcomment %}
+    <nav class="navbar navbar-expand-lg bg-body-tertiary">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="#">Navbar</a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+              <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="{% url "inicio" %}">Inicio</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="{% url "productos:index" %}">Productos</a>
+            </ul>
+          </div>
+        </div>
+      </nav>
+    {% comment %} ahora agregaremos una clase para que el contenido que pasemos de las platillas este centrado {% endcomment %}
+    <div class="container">
+    
+        {% block content %}
+        <!-- con esto nosotros podriamos ir a otro archivo como index y extender
+        desde este archivo base y luego cargar aqui todo el contenido
+        que queramos, pero lo que vamos a hacer es cargar el contenido
+        de index aqui 
+
+    al mover el archivo base a esta carpeta de templates y añadir
+    [os.path.join(BASE_DIR, 'templates')]  al argumento de settings
+    ya podemos usar esta plantilla desde cualquier proyecto de Django-->
+
+        {% endblock %}
+    /<div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+</body>
+</html>

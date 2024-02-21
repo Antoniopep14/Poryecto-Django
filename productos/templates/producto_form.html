@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block content %}
+{% comment %} ahora agregaremos un nuevo atributo encargado de revisar que los datos del formulario sean correctos {% endcomment %}
+<form 
+    novalidate 
+    action= "{% url 'productos:formulario' %}" 
+    method='post'>
+{% comment %} ahora agregamos un input oculto usado como metodo de seguridad {% endcomment %}
+    {% csrf_token %}
+    {{ form }}
+    <input type="submit" value="Enviar"/>
+</form> 
+
+{% endblock %}

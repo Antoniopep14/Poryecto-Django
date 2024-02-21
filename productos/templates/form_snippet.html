@@ -1,0 +1,47 @@
+{% comment %} aqui no tenemos que extender desde la base porque este archivo django 
+lo va a estar verificando para ver si no tenemos alguna personalizacion 
+en las platillas
+lo primero que tenemos que hacer es iterar todos los campos 
+la etiqueta labeltag es la encargada de decir en cada campo el tipo de dato que debe llevar
+luego se le pide que muestre el mismo texto ya sea de campo o numero {{field}}
+despues colocamos los errores en caso de que el formulario los tenga
+para agregar estilo fuimos a bootstrap y copiamos el codigo
+<div class="mb-3">
+de la parte de forms overview
+despues en validation copiamos la de errores
+ahora agregamos la linea de input.html de github a la carpeta principal de templates
+creando la misma ruta de github.. django\forms\widgets
+<input type="{{ widget.type }}" name="{{ widget.name }}"{% if widget.value != None %} value="{{ widget.value|stringformat:'s' }}"{% endif %}{% include "django/forms/widgets/attrs.html" %}>
+y agregamos la clase form-control al principio de la linea de arriba en el archivo input.html
+ahora para dar mas estilo de las letras del formulario
+agregamos el archivo label a la misma ruta pero en forms
+agregando tambien la clase form-label pero ahora despues de la ruta input.html
+despues agregamos el archivo de select.html a widgets
+y agregamos los estilos de bootstrap con la linea 
+ahora que ya tenemos el estilo definido
+vamos a declarar que pasa si ocurre algun error en los campos del formulario
+para ello cargamos un filtro con load e iteramos los errores con field
+despues agregamos la clase is-invalid a input.html de la forma 
+ {{ widget.attrs.class}}
+despues creamos el archivo add_attr dentro de productos/templatetags(la cree en ese momento)
+
+
+
+{% endcomment %}
+{% load add_attr %}
+{% for field in form %}
+<div class="mb-3">
+    {{ field.label_tag }} 
+    {% comment %} eliminamos {{ field }} de arriba y lo movemos a la iteracion de abajo{% endcomment %}
+    {% if field.errors %}
+        {{ field|add_attr:"class:is-invalid" }}
+    {% else %}
+        {{ field }}
+    {% endif %}
+    <div class="invalid-feedback">
+    {% for error in field.errors %}
+        {{ error }}
+    {% endfor %}
+    </div>
+</div>
+{% endfor %}
